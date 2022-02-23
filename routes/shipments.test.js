@@ -25,6 +25,12 @@ describe("POST /", function () {
 
     expect(resp.statusCode).toEqual(400);
     expect(Object.keys(resp.body)).toContain("error");
-    expect(resp.body.error.message.length).toEqual(5);
+    expect(resp.body.error.message).toEqual([
+      "instance.productId must be greater than or equal to 1000",
+      "instance.name is not of a type(s) string",
+      "instance.addr is not of a type(s) string",
+      "instance is not allowed to have the additional property \"invalidArg\"",
+      "instance requires property \"zip\""
+    ]);
   });
 });

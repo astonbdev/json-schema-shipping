@@ -1,5 +1,11 @@
 "use strict";
 
+const SHIP_IT_ID = 9000;
+
+const shipItApi = require("../shipItApi");
+shipItApi.shipProduct = jest.fn();
+shipItApi.shipProduct.mockReturnValue(SHIP_IT_ID);
+
 const request = require("supertest");
 const app = require("../app");
 
@@ -13,7 +19,7 @@ describe("POST /", function () {
       zip: "12345-6789",
     });
 
-    expect(resp.body).toEqual({ shipped: expect.any(Number) });
+    expect(resp.body).toEqual({ shipped: SHIP_IT_ID });
   });
   test("not valid", async function () {
     const resp = await request(app).post("/shipments").send({

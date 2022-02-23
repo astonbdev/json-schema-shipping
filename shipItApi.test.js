@@ -6,12 +6,16 @@ const axios = require("axios");
 const axiosMock = new AxiosMockAdapter(axios);
 
 const {
-  shipProduct,
+  shipProduct, SHIPIT_SHIP_URL
 } = require("./shipItApi");
 
 
 test("shipProduct", async function () {
-  axiosMock.onPost("http://localhost:3001/ship")
+  axiosMock.onPost(SHIPIT_SHIP_URL).reply(200, {
+    receipt: {
+      shipId: 1
+    }
+  });
 
   const shipId = await shipProduct({
     productId: 1000,
@@ -20,5 +24,5 @@ test("shipProduct", async function () {
     zip: "12345-6789",
   });
 
-  expect(shipId).toEqual(expect.any(Number));
+  expect(shipId).toEqual(1);
 });

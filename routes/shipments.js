@@ -19,8 +19,8 @@ const shipmentSchema = require("../schemas/shipment.schema.json")
  */
 
 router.post("/", async function (req, res, next) {
-  const result = jsonschema.validate(req.body, shipmentSchema, {required: true});
-  if(!result.valid){
+  const result = jsonschema.validate(req.body, shipmentSchema, { required: true });
+  if (!result.valid) {
     let errs = result.errors.map(err => err.stack);
     throw new BadRequestError(errs);
   }
